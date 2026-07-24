@@ -3,17 +3,19 @@
 
 ## Project Flow
 
-This project extends the Task 1 User Management app by adding authentication — users can register, log in, and access a protected dashboard.
+This project builds on Task 1 by adding a login system — users can register, log in, and see a dashboard only logged-in users can access.
 
-**Registering:** The user enters a username and password. Before saving anything, the app scrambles the password using **hashing** — like shredding it so it can never be read back. Only this scrambled version gets stored in the database, never the real password.
+**Registering:** The user enters a username and password. The app scrambles the password (called **hashing**) before saving it, so the real password is never stored.
 
-**Logging in:** The user enters their credentials again. The app finds their username, scrambles the password they just typed the same way, and checks if it matches the stored version. If it matches, login succeeds.
+**Logging in:** The user enters their details again. The app scrambles the typed password the same way and checks if it matches the saved version. If it matches, login succeeds.
 
-**Staying logged in:** Once login succeeds, the app creates a small **session** — a note saying "this browser belongs to a logged-in user." This note is attached to the browser, so the server keeps recognizing the user as they move between pages.
+**Staying logged in:** After login, the app creates a small note called a **session**, attached to the browser. This is how it remembers you're logged in as you move between pages.
 
-**Protected dashboard:** Before loading the dashboard, the app checks if that session note exists. If yes, the dashboard loads. If no, the user is redirected back to login — so no one can access it just by typing the URL.
+**Protected dashboard:** The app checks for that session note before showing the dashboard. No note means no access — the user gets sent back to login instead.
 
-**Logging out:** The session note is deleted, so the app "forgets" the user was logged in, sending them back to login if they try to revisit the dashboard.
+**Logging out:** The session note is deleted, so the app forgets you were logged in.
+
+**In short:** signup saves a scrambled password, login checks it and gives a session pass, the dashboard only opens with that pass, and logout takes it away.
 
 ---
 
@@ -27,9 +29,9 @@ This project extends the Task 1 User Management app by adding authentication —
 ---
 
 ## Features
-- User registration with hashed passwords
-- Login with credential verification
-- Session-based authentication
+- Register with a hashed password
+- Login with username and password
+- Session-based login tracking
 - Protected dashboard (logged-in users only)
 - Secure logout
 
@@ -40,9 +42,9 @@ This project extends the Task 1 User Management app by adding authentication —
 pip install flask werkzeug
 python app.py
 ```
-Then open: `http://127.0.0.1:5000/register`
+Open: `http://127.0.0.1:5000/register`
 
 ---
 
-## Learning Outcome
-This task helped me understand how real apps secure user data — password hashing, session-based login, and protecting routes from unauthorized access.
+## What I Learned
+This task helped me understand how login systems work — password hashing, sessions, and restricting access to protected pages.
