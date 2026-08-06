@@ -48,3 +48,42 @@ Open: `http://127.0.0.1:5000/register`
 
 ## What I Learned
 This task helped me understand how login systems work — password hashing, sessions, and restricting access to protected pages.
+
+# Flask Student Management System (Task 3)
+
+A secure, database-driven Web Application built with Flask and SQLite. This project extends the Task-2 authentication system by implementing full CRUD (Create, Read, Update, Delete) capabilities for managing student records,only accessable by authenticated users.
+
+## Features
+
+- **User Authentication (Task 2)**: Secure user registration and login with password hashing using Werkzeug and session-based route protection.
+- **Protected Dashboard**: Central hub accessible only after logging in.
+- **CRUD Operations (Task 3)**:
+  - **Create**: Add new student details (Name, Email, Course).
+  - **Read**: Display all stored student records in a dynamic HTML table.
+  - **Update**: Edit existing student details.
+  - **Delete**: Remove a student record from the database.
+- **Database Persistence**: Automatic setup and storage using SQLite (`database.db`).
+- **Security**: Direct URL access to dashboard and CRUD routes without logging in redirects to `/login`.
+
+---
+
+## Project Structure
+
+```text
+python-fullstack-task3/
+│
+├── app.py              # Main Flask application logic & routes
+├── database.db          # SQLite database (auto-generated)
+├── README.md            # Project documentation
+│
+├── templates/
+│   ├── login.html       # Login page
+│   ├── register.html    # User registration page
+│   ├── dashboard.html   # Main authenticated dashboard
+│   ├── students.html    # Student list view (Read)
+│   ├── add_student.html # Add student form (Create)
+│   └── edit_student.html# Edit student form (Update)
+│
+└── static/
+    └── style.css        # Basic CSS styles
+
