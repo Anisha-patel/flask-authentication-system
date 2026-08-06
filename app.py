@@ -57,6 +57,71 @@ def home():
         return redirect('/dashboard')
     return redirect('/login')
 
+@app.route('/add-student', methods=['GET', 'POST'])
+def add_student():
+    if 'user' not in session:
+        return redirect('/login')
+
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        course = request.form['course']
+
+        db = get_db()
+        db.execute(
+            "INSERT INTO students (name, email, course) VALUES (?, ?, ?)",
+            (name, email, course)
+        )
+        db.commit()
+        db.close()
+        return redirect('/students')
+
+    return render_template('add_student.html')
+
+
+@app.route('/students')
+def students():
+    if 'user' not in session:
+        return redirect('/login')
+
+    db = get_db()
+    data = db.execute("SELECT * FROM students").fetchall()
+    return render_template('student.html', students=data)
+
+
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit_student(id):
+    if 'user' not in session:
+        return redirect('/login')
+
+    db = get_db()
+    student = db.execute(
+        "SELECT * FROM students WHERE id = ?", (id,)).fetchone()
+    if request.method == 'POST':
+        db.execute(
+            "UPDATE students SET name=?, email=?, course=? WHERE id=?",
+            (
+                request.form['name'],
+                request.form['email'],
+                request.form['course'],
+                id
+            )
+        )
+        db.commit()
+        return redirect('/students')
+    return render_template('edit_student.html', student=student)
+
+
+@app.route('/delete/<int:id>')
+def delete_student(id):
+    if 'user' not in session:
+        return redirect('/login')
+
+    db = get_db()
+    db.execute("DELETE FROM students WHERE id=?", (id,))
+    db.commit()
+    db.close()
+    return redirect('/students')
 
 if __name__ == '__main__':
     app.run(debug=True)
