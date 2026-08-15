@@ -70,27 +70,7 @@ A secure, database-driven Web Application built with Flask and SQLite. This proj
 
 ---
 
-## Project Structure
-
-```text
-python-fullstack-task3/
-│
-├── app.py              # Main Flask application logic & routes
-├── database.db          # SQLite database (auto-generated)
-├── README.md            # Project documentation
-│
-├── templates/
-│   ├── login.html       # Login page
-│   ├── register.html    # User registration page
-│   ├── dashboard.html   # Main authenticated dashboard
-│   ├── students.html    # Student list view (Read)
-│   ├── add_student.html # Add student form (Create)
-│   └── edit_student.html# Edit student form (Update)
-│
-└── static/
-    └── style.css        # Basic CSS styles
-
-# Task 4 – Roles, Admin Panel & REST API (Flask)
+# Flask Student Management System (Task 4)
  
 This is Task 3 (student CRUD app) upgraded with:
 - User roles (admin / user)
@@ -99,10 +79,12 @@ This is Task 3 (student CRUD app) upgraded with:
 
 ## Key Features
 
-* **User Authentication**: User registration, login, and session persistence powered by Werkzeug password hashing.
-* **Role-Based Access Control (RBAC)**: Custom decorators (`@admin_required`, `@login_required`) restricting sensitive operations like user management and student deletion to `admin` accounts.
-* **Web Student Management**: HTML interface for listing, adding, editing, and deleting student records.
-* **RESTful API**: Endpoints returning clean JSON payloads for integration and testing.
+## Key Features
+
+* **User Login & Security**: Users can register and log in safely. Passwords are saved securely using Werkzeug hashing.
+* **Role-Based Permissions**: Admin users get special access. Custom checks (`@admin_required`, `@login_required`) stop regular users from deleting students or managing accounts.
+* **Student Management Interface**: Simple web pages to view, add, edit, and delete student records easily.
+* **REST APIs**: Built-in API endpoints that return data in clean JSON format for testing or linking with other apps.
 
 ---
 
@@ -122,7 +104,7 @@ This is Task 3 (student CRUD app) upgraded with:
 
 ### 1. Get Single Student (`GET /api/students/2`)
 
-**Response Status:** `200 OK`
+**Response Status:** 
 ```json
 {
   "id": 2,
@@ -130,3 +112,25 @@ This is Task 3 (student CRUD app) upgraded with:
   "email": "anisha123@gmail.com",
   "course": "CSE"
 }
+```
+
+## Project Structure
+
+```text
+flask-authentication-system/
+│
+├── app.py                 # Main Flask application logic (Auth, RBAC, CRUD, & REST APIs)
+├── database.db            # SQLite database (stores users & students data)
+├── README.md              # Complete multi-task project documentation
+│
+├── templates/
+│   ├── login.html         # Login page
+│   ├── register.html      # User registration page
+│   ├── dashboard.html     # Standard user dashboard
+│   ├── admin_dashboard.html # Admin-only dashboard (RBAC)
+│   ├── students.html      # Student list view (Read)
+│   ├── add_student.html   # Add student form (Create)
+│   └── edit_student.html  # Edit student form (Update)
+│
+└── static/
+    └── style.css          # Styling for UI components
