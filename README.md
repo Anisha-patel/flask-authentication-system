@@ -1,3 +1,6 @@
+This repo tracks progress across Task 2 → Task 4 in one evolving Flask app.
+See tags for each stage: `task2`, `task3`, `task4`
+
 # Python Full Stack Web Development — Task 2
 ### User Authentication System (Register, Login, Logout) using Flask
 
@@ -87,3 +90,43 @@ python-fullstack-task3/
 └── static/
     └── style.css        # Basic CSS styles
 
+# Task 4 – Roles, Admin Panel & REST API (Flask)
+ 
+This is Task 3 (student CRUD app) upgraded with:
+- User roles (admin / user)
+- An admin-only panel
+- REST APIs that return JSON
+
+## Key Features
+
+* **User Authentication**: User registration, login, and session persistence powered by Werkzeug password hashing.
+* **Role-Based Access Control (RBAC)**: Custom decorators (`@admin_required`, `@login_required`) restricting sensitive operations like user management and student deletion to `admin` accounts.
+* **Web Student Management**: HTML interface for listing, adding, editing, and deleting student records.
+* **RESTful API**: Endpoints returning clean JSON payloads for integration and testing.
+
+---
+
+## API Reference
+
+| Endpoint | Method | Authorization | Description |
+| :--- | :--- | :--- | :--- |
+| `/api/students` | `GET` | Login Required | Retrieves all student records |
+| `/api/students/<id>` | `GET` | Login Required | Retrieves details for a specific student by ID |
+| `/api/students` | `POST` | Login Required | Adds a new student record (JSON body required) |
+| `/api/students/<id>` | `PUT` | Login Required | Updates an existing student record (JSON body required) |
+| `/api/students/<id>` | `DELETE` | Admin Only | Deletes a student record by ID |
+
+---
+
+## Example API Requests & Responses
+
+### 1. Get Single Student (`GET /api/students/2`)
+
+**Response Status:** `200 OK`
+```json
+{
+  "id": 2,
+  "name": "Anisha",
+  "email": "anisha123@gmail.com",
+  "course": "CSE"
+}
