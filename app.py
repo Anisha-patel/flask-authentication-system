@@ -3,7 +3,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 from functools import wraps
 app = Flask(__name__)
-app.secret_key = "secure-secret-key" 
+import os
+app.secret_key = os.environ.get("SECRET_KEY", "fallback-dev-key")
 
 def get_db():
     conn = sqlite3.connect("database.db")
@@ -220,4 +221,4 @@ def api_delete_student(id):
     return jsonify({"message": "Student deleted"})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
