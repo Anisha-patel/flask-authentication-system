@@ -1,5 +1,5 @@
-This repo tracks progress across Task 2 → Task 4 in one evolving Flask app.
-See tags for each stage: `task2`, `task3`, `task4`
+This repo tracks progress across Task 2 → Task 5 in one evolving Flask app.
+See tags for each stage: `task2`, `task3`, `task4` ,`task5`
 
 # Python Full Stack Web Development — Task 2
 ### User Authentication System (Register, Login, Logout) using Flask
@@ -113,24 +113,79 @@ This is Task 3 (student CRUD app) upgraded with:
   "course": "CSE"
 }
 ```
+# Flask Student Management System (Task 5)
+
+This task takes the app built in Task 4 and puts it live on the web. Instead of running only on a personal computer, it's now hosted online so anyone with the link can use it.
+
+---
+
+## What Changed?
+
+Before this step, the project only ran on a local machine (`127.0.0.1:5000`). Task 5 was all about making it safe, stable, and accessible to the public.
+
+* **Safety First:** Debug mode was turned off, and the secret key (used for secure login sessions) was removed from the code and saved as a hidden environment variable.
+* **Production Web Server:** Flask’s built-in starter server was replaced with **Gunicorn**, a proper web server made to handle real web traffic. 
+* **Procfile:** A file named `Procfile` tells the hosting platform how to start the app:
+```
+web: gunicorn app:app
+```
+**requirements.txt:** Lists every package the app depends on (Flask, Werkzeug, gunicorn, etc.), so the cloud server knows exactly what to install before running the app.
+**Deployment:** The project is deployed on **Render**, connected directly to this GitHub repo. Every push to `main` triggers Render to rebuild and redeploy automatically.
+
+## Live URL
+🔗 https://flask-authentication-system-s7ms.onrender.com
+ 
+---
+ 
+## Technologies Used (Additional for Task 5)
+- **WSGI Server:** Gunicorn
+- **Hosting:** Render (free tier)
+- **Environment Config:** Python's `os.environ`
+---
+
+## Environment Variables
+ 
+| Variable | Purpose |
+|---|---|
+| `SECRET_KEY` | Used by Flask to sign session cookies securely |
+ 
+Set in Render under Environment → Environment Variables, never committed to GitHub.
+ 
+---
+ 
+## Deployment Steps
+1. Disabled debug mode (`app.run(debug=False)`)
+2. Moved `app.secret_key` to read from an environment variable
+3. Created `requirements.txt` listing all dependencies
+4. Created `Procfile` with `web: gunicorn app:app`
+5. Pushed everything to GitHub
+6. Created a Web Service on Render, connected to this repo
+7. Set Build Command: `pip install -r requirements.txt`
+8. Set Start Command: `gunicorn app:app`
+9. Added `SECRET_KEY` as an environment variable on Render
+10. Deployed and tested the live URL — login, dashboard, admin panel, and APIs all verified working
+---
 
 ## Project Structure
-
+ 
 ```text
 flask-authentication-system/
 │
 ├── app.py                 # Main Flask application logic (Auth, RBAC, CRUD, & REST APIs)
 ├── database.db            # SQLite database (stores users & students data)
-├── README.md              # Complete multi-task project documentation
+├── requirements.txt       # Python dependencies for deployment
+├── Procfile                # Tells the hosting platform how to run the app (gunicorn)
+├── README.md               # Complete multi-task project documentation
 │
 ├── templates/
-│   ├── login.html         # Login page
-│   ├── register.html      # User registration page
-│   ├── dashboard.html     # Standard user dashboard
+│   ├── login.html          # Login page
+│   ├── register.html       # User registration page
+│   ├── dashboard.html      # Standard user dashboard
 │   ├── admin_dashboard.html # Admin-only dashboard (RBAC)
-│   ├── students.html      # Student list view (Read)
-│   ├── add_student.html   # Add student form (Create)
-│   └── edit_student.html  # Edit student form (Update)
+│   ├── students.html       # Student list view (Read)
+│   ├── add_student.html    # Add student form (Create)
+│   └── edit_student.html   # Edit student form (Update)
 │
 └── static/
-    └── style.css          # Styling for UI components
+    └── style.css            # Styling for UI components
+```

@@ -6,9 +6,11 @@
 </head>
 <body class="dashboard-page">
 <div>
-    <h2>Welcome, Anisha</h2>
+    <p>Welcome, {{ session['user'] }}</p>
     <p>This is a protected dashboard.</p>
     <a href="/logout">Logout</a>
-</div>
+</div><br>
+<a href="{{ url_for('students') }}">Go To Students Table</a>
+{% if role == 'admin' %}<a href="{{ url_for('admin_panel') }}">Admin Panel</a>{% endif %}
 </body>
 </html>
